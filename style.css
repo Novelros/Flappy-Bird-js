@@ -1,0 +1,311 @@
+* {
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #0a2f3a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Times New Roman', 'Georgia', serif;
+    position: relative;
+    padding: 20px;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    cursor: pointer;
+    background: #4ec0ca;
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    aspect-ratio: 400 / 600;
+}
+
+.score-panel {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: clamp(20px, 8vw, 40px);
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(4px);
+    padding: 8px clamp(18px, 5vw, 25px);
+    border-radius: 40px;
+    color: #f9f3d9;
+    font-weight: bold;
+    font-size: clamp(1rem, 4vw, 1.3rem);
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.score-item {
+    display: flex;
+    gap: clamp(8px, 3vw, 12px);
+    align-items: baseline;
+}
+
+.score-item span:first-child {
+    font-size: 0.8rem;
+    opacity: 0.85;
+}
+
+.score-item span:last-child {
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
+    font-weight: 800;
+    background: rgba(0,0,0,0.5);
+    padding: 0 clamp(8px, 3vw, 12px);
+    border-radius: 30px;
+}
+
+.pause-menu, .gameover-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    backdrop-filter: blur(4px);
+}
+
+.pause-menu.hidden, .gameover-menu.hidden {
+    display: none;
+}
+
+.pause-content, .gameover-content {
+    background: #1a3a3f;
+    border-radius: 20px;
+    padding: clamp(20px, 6vw, 30px) clamp(20px, 5vw, 40px);
+    text-align: center;
+    min-width: min(320px, 90vw);
+    max-width: 90vw;
+    border: 2px solid #ffd966;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.pause-content h2 {
+    color: #ffd966;
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+button {
+    background: #f4a261;
+    border: none;
+    font-family: 'Times New Roman', 'Georgia', serif;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    font-weight: bold;
+    padding: clamp(8px, 3vw, 12px) clamp(20px, 6vw, 28px);
+    margin: 8px;
+    border-radius: 40px;
+    color: #1e2f2f;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 3px 0 #9c5a2c;
+}
+
+button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #9c5a2c;
+}
+
+.skin-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,217,102,0.4);
+}
+
+.skin-section h3 {
+    color: #ffd966;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.skin-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.skin-buttons button {
+    background: #2a5f6b;
+    box-shadow: 0 2px 0 #1a3f47;
+    font-size: 0.75rem;
+    padding: 8px 6px;
+    margin: 0;
+    color: #ffecb3;
+}
+
+.skin-buttons button.active {
+    background: #f4a261;
+    color: #1e2f2f;
+    box-shadow: 0 2px 0 #9c5a2c;
+}
+
+.custom-skin {
+    margin-top: 10px;
+}
+
+.custom-skin label {
+    background: #4a90e2;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+    transition: all 0.2s;
+}
+
+.custom-skin label:hover {
+    background: #3570bd;
+    transform: scale(1.02);
+}
+
+.custom-skin input {
+    display: none;
+}
+
+.gameover-circle {
+    background: #2a1a1a;
+    border-radius: 50%;
+    width: min(200px, 45vw);
+    height: min(200px, 45vw);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+    border: 3px solid #ff6666;
+    box-shadow: 0 0 15px rgba(255,0,0,0.3);
+}
+
+.gameover-text {
+    color: #ff8888;
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.final-score {
+    color: #ffd700;
+    font-size: clamp(2rem, 8vw, 3rem);
+    font-weight: bold;
+}
+
+.gameover-hint {
+    margin-top: 12px;
+    color: #aaa;
+    font-size: 0.7rem;
+}
+
+.gameover-skin {
+    margin-top: 15px;
+}
+
+.controls-hint {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    padding: 6px 14px;
+    border-radius: 30px;
+    color: #e9f5db;
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    z-index: 10;
+    font-family: 'Times New Roman', 'Georgia', serif;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    .controls-hint {
+        font-size: 0.55rem;
+        bottom: 10px;
+        white-space: nowrap;
+    }
+    
+    .score-panel {
+        top: 10px;
+    }
+    
+    .skin-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 400px) {
+    .skin-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .pause-content, .gameover-content {
+        padding: 15px 20px;
+    }
+    
+    button {
+        padding: 8px 16px;
+        margin: 6px;
+    }
+    
+    .custom-skin label {
+        padding: 6px 12px;
+        font-size: 0.7rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    canvas {
+        max-width: 450px;
+    }
+    
+    .controls-hint {
+        font-size: 0.8rem;
+        padding: 8px 20px;
+    }
+}
+
+@media (hover: hover) {
+    button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 0 #9c5a2c;
+    }
+    
+    button:active {
+        transform: translateY(2px);
+        box-shadow: 0 1px 0 #9c5a2c;
+    }
+    
+    .custom-skin label:hover {
+        transform: scale(1.03);
+    }
+}

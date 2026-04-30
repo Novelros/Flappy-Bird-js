@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Flappy Bird</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="flappyCanvas" width="400" height="600"></canvas>
+    
+    <div class="score-panel">
+        <div class="score-item">
+            <span>СЧЕТ</span>
+            <span id="currentScore">0</span>
+        </div>
+        <div class="score-item">
+            <span>РЕКОРД</span>
+            <span id="bestScore">0</span>
+        </div>
+    </div>
+    
+    <div id="pauseMenu" class="pause-menu hidden">
+        <div class="pause-content">
+            <h2>ПАУЗА</h2>
+            <button id="continueBtn">ПРОДОЛЖИТЬ</button>
+            <button id="restartPauseBtn">НАЧАТЬ ЗАНОВО</button>
+            
+            <div class="skin-section">
+                <h3>ВЫБЕРИ СКИН</h3>
+                <div class="skin-buttons">
+                    <button class="skin-btn" data-skin="classic">КЛАССИКА</button>
+                    <button class="skin-btn" data-skin="red">КРАСНЫЙ</button>
+                    <button class="skin-btn" data-skin="blue">СИНИЙ</button>
+                    <button class="skin-btn" data-skin="green">ЗЕЛЕНЫЙ</button>
+                    <button class="skin-btn" data-skin="purple">ФИОЛЕТОВЫЙ</button>
+                    <button class="skin-btn" data-skin="gold">ЗОЛОТОЙ</button>
+                </div>
+                
+                <div class="custom-skin">
+                    <label for="customSkin">СВОЯ ФОТОГРАФИЯ</label>
+                    <input type="file" id="customSkin" accept="image/*">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="gameOverMenu" class="gameover-menu hidden">
+        <div class="gameover-content">
+            <div class="gameover-circle">
+                <span class="gameover-text">ВЫ ПРОИГРАЛИ</span>
+                <span class="final-score" id="finalScore">0</span>
+            </div>
+            
+            <div class="skin-section">
+                <h3>ВЫБЕРИ СКИН</h3>
+                <div class="skin-buttons">
+                    <button class="gameover-skin-btn" data-skin="classic">КЛАССИКА</button>
+                    <button class="gameover-skin-btn" data-skin="red">КРАСНЫЙ</button>
+                    <button class="gameover-skin-btn" data-skin="blue">СИНИЙ</button>
+                    <button class="gameover-skin-btn" data-skin="green">ЗЕЛЕНЫЙ</button>
+                    <button class="gameover-skin-btn" data-skin="purple">ФИОЛЕТОВЫЙ</button>
+                    <button class="gameover-skin-btn" data-skin="gold">ЗОЛОТОЙ</button>
+                </div>
+                
+                <div class="custom-skin">
+                    <label for="customSkinGameover">СВОЯ ФОТОГРАФИЯ</label>
+                    <input type="file" id="customSkinGameover" accept="image/*">
+                </div>
+            </div>
+            
+            <button id="gameoverRestartBtn">НАЧАТЬ ЗАНОВО</button>
+            <div class="gameover-hint">НАЖМИТЕ R ДЛЯ ПЕРЕЗАГРУЗКИ | ESC - ПАУЗА</div>
+        </div>
+    </div>
+    
+    <div class="controls-hint">
+        ПРОБЕЛ / КЛИК — ПРЫЖОК | ESC — ПАУЗА | R — РЕСТАРТ
+    </div>
+    
+    <script type="module" src="main.js"></script>
+    <script src="skinManager.js"></script>
+</body>
+</html>
